@@ -1,0 +1,38 @@
+.markdown-viewer h3 {
+    font-weight: bold !important;
+    font-size: 1.3em !important;
+    margin-bottom: 10px;
+}
+.markdown-viewer h1 {
+    font-weight: bolder !important;
+    font-size: 2em !important;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    margin-bottom: 10px;
+}
+.markdown-viewer h2 {
+    font-weight: bold !important;
+    font-size: 1.7em !important;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    margin-bottom: 10px;
+}
+.markdown-viewer h4 {
+    font-weight: bold !important;
+    font-size: 1.2em !important
+}
+.markdown-viewer h5 {
+    font-weight: bold !important;
+    font-size: 1.1em !important
+}
+.markdown-viewer h6 {
+    font-weight: bold !important;
+    font-size: 1em !important
+}
+.markdown-viewer p {
+    margin-left: 10px
+}
+.markdown-viewer ul {
+    margin-left: 40px;
+}
+.markdown-viewer ol {
+    margin-left: 40px;
+}
