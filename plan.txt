@@ -1,0 +1,59 @@
+apis:
+
+/api/signin  
+/api/signup  
+/api/manage-listing   
+    ?action=create|edit|delete
+/api/buy-listing
+    ?listingID=as;dklfasd;klf
+           - will query listing from DB, check if user already owns it, and if the user does, or if the user doesn't have enough points, then return. However, if they don't, then increase download count, and add it to their owned notes.
+/api/download-listing   GET
+    ?listingID=adsfasdfasdf
+           - will query listing from DB, check if user owns it, redirect user to the downloadLink, and NOT increase download count
+
+pages:
+/                                                                 
+ - home page   
+/signin                                                           
+ - Sign in page (redirects to dashboard if already signed in)      
+/signup                                                           
+ - Sign up page (redirects to dashboard if already signed in)  
+/dashboard                                                        
+ - Displays points, notes that user uploaded, and notes that user bought
+/marketplace
+ - Has a search feature, search by tags, or by name
+/note/:listingID
+ - Displays information about the note, and a big purchase button if user hasn't purchased, or a download button if user has purchased
+/new                                                              
+ - Upload form for PDF and notes info
+/edit/:listingID
+ - Edit Stuff
+
+
+Objects:
+
+Note: 
+{
+    id: "randomly generated unique ID",
+    name: "The Name",
+    tags: TagList,
+    tagline: "Brief Description",
+    description: "Markdown description",
+    downloadLink: "amazon s3 pdf link",
+    owner: "owner email",
+    downloadCount: 0,
+}
+
+TagList
+[
+    "tag1 name",
+    "tag2 name"
+]
+0 < array.length < 6
+
+
+
+POINTS:
+ - User starts with 5 points
+ - Things cost 8 points to buy
+ - Seller gets 10 points when their note sells
