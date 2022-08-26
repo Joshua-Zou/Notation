@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const secrets = JSON.parse(JSON.stringify(require("../secrets.json")) || process.env.secrets)
+const secrets = JSON.parse(process.env.secrets || JSON.stringify(require("../secrets.json")))
 
 
 var algorithm = "aes-192-cbc";
