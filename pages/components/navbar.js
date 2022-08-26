@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head"
 
 import {
@@ -13,7 +13,8 @@ import {
     VStack,
     IconButton,
     CloseButton,
-    Image
+    Image,
+    Avatar
 } from "@chakra-ui/react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Logo } from "../../public/logo-text.png";
@@ -21,6 +22,14 @@ import { Logo } from "../../public/logo-text.png";
 const Navbar = () => {
     const bg = useColorModeValue("teal.50", "gray.800");
     const mobileNav = useDisclosure();
+
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        setIsLoggedIn(localStorage.token || sessionStorage.token)
+    }, [typeof window])
+
 
     return (
         <React.Fragment>
@@ -55,13 +64,28 @@ const Navbar = () => {
                         >
                             <chakra.a href="/dashboard"><Button variant="ghost" _hover={{ bg: "teal.100" }}>Dashboard</Button></chakra.a>
                             <chakra.a href="/marketplace"><Button variant="ghost" _hover={{ bg: "teal.100" }}>Marketplace</Button></chakra.a>
-                            <chakra.a href="/signin"><Button variant="ghost" _hover={{ bg: "teal.100" }}>Sign in</Button></chakra.a>
+                            {
+                                !isLoggedIn && (
+                                    <chakra.a href="/signin"><Button variant="ghost" _hover={{ bg: "teal.100" }}>Sign in</Button></chakra.a>
+                                )
+                            }
                         </HStack>
-                        <chakra.a href="/signup">
-                            <Button colorScheme="teal" size="sm">
-                                Get Started
-                            </Button>
-                        </chakra.a>
+                        {
+                            !isLoggedIn && (
+                                <chakra.a href="/signup">
+                                    <Button colorScheme="teal" size="sm">
+                                        Get Started
+                                    </Button>
+                                </chakra.a>
+                            )
+                        }
+                        {
+                            isLoggedIn && (
+                               <Avatar name="profile picture" src={"/api/pfp?token="+isLoggedIn}/>
+                            )
+                        }
+
+                        {/* Mobile stuff */}
                         <Box display={{ base: "inline-flex", md: "none" }}>
                             <IconButton
                                 display={{ base: "flex", md: "none" }}
