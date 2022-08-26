@@ -1,5 +1,5 @@
 
-const secrets = JSON.parse(process.env.secrets || JSON.stringify(require("../secrets.json")))
+const secrets = JSON.parse(process.env.secrets)
 const {MongoClient} = require('mongodb')
 const mongoclient = new MongoClient(secrets.mongodb);
 

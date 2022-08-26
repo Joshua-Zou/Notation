@@ -1,7 +1,7 @@
 import connectToDb from "../../utils/mongodb"
 const crypto = require("crypto")
 const sendgrid = require("../../utils/sendgrid.js")
-const secrets = JSON.parse(process.env.secrets || JSON.stringify(require("../../secrets.json")))
+const secrets = JSON.parse(process.env.secrets)
 
 export default async function handler(req, res) {
   const db = await connectToDb();
