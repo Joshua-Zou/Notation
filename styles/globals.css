@@ -36,3 +36,7 @@
 .markdown-viewer ol {
     margin-left: 40px;
 }
+.react-pdf__Page canvas {
+    max-width: calc(100vw - 10px);
+    height: auto !important;
+}

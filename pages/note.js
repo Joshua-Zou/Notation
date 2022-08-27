@@ -122,6 +122,7 @@ function SplitWithImage(props) {
                 left="50px"
                 top="-20px"
                 margin="0"
+                maxWidth="calc(100vw - 80px)"
             >
                 <Text
                     textTransform={'uppercase'}
@@ -132,7 +133,8 @@ function SplitWithImage(props) {
                     p={2}
                     alignSelf={'flex-start'}
                     display="inline-block"
-                    rounded={'md'}>
+                    rounded={'md'}
+                    >
                     Owned
                 </Text>
                 <Text
@@ -207,7 +209,7 @@ function SplitWithImage(props) {
                 <Flex>
                     <PdfViewUpload pdfurl={props.initial.downloadLink} />
                 </Flex>
-                <Stack spacing={4}>
+                <Stack spacing={4} zIndex={1}>
                     <Text
                         fontWeight="bold"
                         fontSize="36px"
