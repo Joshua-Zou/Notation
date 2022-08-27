@@ -116,6 +116,7 @@ function TagSelector(props) {
     fetchTags()
     async function fetchTags(force) {
         if (tags[0].loading === true || force === true) {
+            if (typeof window === "undefined") return;
             let results = await fetch("/api/tags");
             results = await results.json();
             results = results.map(tag => {

@@ -621,7 +621,6 @@ export default function Dashboard() {
         listedNotesData: [],
         ownedNotesData: []
     });
-    console.log(data)
     useEffect(() => {
         async function getData() {
             if (data.loading === true) {
