@@ -75,7 +75,7 @@ function TagSelector(props) {
     fetchTags()
     async function fetchTags(force) {
         if (tags[0].loading === true || force === true) {
-            let results = await fetch("/api/tags");
+            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN+"/api/tags");
             results = await results.json();
             setTags(results)
         }
