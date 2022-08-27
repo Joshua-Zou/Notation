@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     from: "noreply@notation.tk",
     subject: "Verify your Notation account",
     html: `
-        Please verify your Notation account by clicking the below link: <a href="${secrets.domain}/api/verify-email?code=${linkid}">${secrets.domain}/api/verify-email?code=${linkid}</a>
+        Please verify your Notation account by clicking the below link: <a href="${process.env.NEXT_PUBLIC_DOMAIN}/api/verify-email?code=${linkid}">${process.env.NEXT_PUBLIC_DOMAIN}/api/verify-email?code=${linkid}</a>
     `
   }).then(() => {
     return res.send({status: "ok"})
