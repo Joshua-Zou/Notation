@@ -12,7 +12,8 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
-  chakra
+  chakra,
+  Link
 } from '@chakra-ui/react';
 
  function CallToActionWithAnnotation() {
@@ -54,9 +55,9 @@ import {
               Get Started
             </Button>
             </chakra.a>
-            <a href="/marketplace" variant={'link'} colorScheme={'blue'} size={'sm'}>
+            <Link href="/marketplace" variant={'link'} colorScheme={'blue'} size={'sm'}>
               View Notes
-            </a>
+            </Link>
             <Box>
               <Icon
                 as={Arrow}
