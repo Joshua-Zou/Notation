@@ -117,7 +117,7 @@ function TagSelector(props) {
     async function fetchTags(force) {
         if (tags[0].loading === true || force === true) {
             if (typeof window === "undefined") return;
-            let results = await fetch("/api/tags");
+            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN+"/api/tags");
             results = await results.json();
             results = results.map(tag => {
                 var x = {
@@ -132,7 +132,7 @@ function TagSelector(props) {
     }
     async function addTag() {
         let tagName = prompt("Enter the custom tag name you want!").toString()
-        let results = await fetch("/api/tags?action=add-tag", {
+        let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN+"/api/tags?action=add-tag", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
