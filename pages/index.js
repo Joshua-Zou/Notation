@@ -43,7 +43,7 @@ import {
             align={'center'}
             alignSelf={'center'}
             position={'relative'}>
-            <chakra.a>
+            <chakra.a href="/signup">
             <Button
               colorScheme={'teal'}
               bg={'teal.400'}
