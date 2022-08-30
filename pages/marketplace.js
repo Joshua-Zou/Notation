@@ -1,10 +1,10 @@
 import React from "react";
-import { Box, Flex, Image, Link, chakra, Text, Avatar, useDisclosure, Drawer, DrawerOverlay, DrawerContent, IconButton, InputGroup, InputLeftElement, Input, Icon, Collapse, useColorModeValue, Button } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, chakra, Text, useDisclosure, Drawer, DrawerOverlay, DrawerContent, IconButton, InputGroup, InputLeftElement, Input, Icon, Collapse, useColorModeValue, Button } from "@chakra-ui/react";
 import { FiMenu, FiSearch } from "react-icons/fi"
 import { MdHome, MdKeyboardArrowRight } from "react-icons/md"
 import { AiFillTags } from "react-icons/ai"
 import { Dropdown } from 'semantic-ui-react'
-
+import Avatar from "boring-avatars"
 
 
 const Card = (props) => {
@@ -55,6 +55,7 @@ const Card = (props) => {
                             },
                             textDecor: "underline",
                         }}
+                        href={"/note?id=" + props.id}
                     >
                         {props.name}
                     </Link>
@@ -74,7 +75,20 @@ const Card = (props) => {
                     </Link>
 
                     <Flex alignItems="center">
-                        <Avatar name="profile picture" src={"/api/pfp?email=" + props.owner} />
+                        <Link
+                            color="brand.600"
+                            _dark={{ color: "brand.400" }}
+                            _hover={{ textDecor: "underline" }}
+                            href={"/user?id=" + props.userhash}
+                        >
+                                                    <Avatar
+                        size={42}
+                        name={props.userhash}
+                        variant={"beam"}
+                        colors={['#C1DDC7', '#F5E8C6', '#BBCD77', '#DC8051', '#F4D279']}
+                        square={false}
+                        />
+                        </Link>
                     </Flex>
                 </Flex>
             </Box>
@@ -344,6 +358,7 @@ function CardWrapper(props) {
                         noteTags={note.tags}
                         id={note.id}
                         tagline={note.tagline}
+                        userhash={note.userhash}
                     />
                 )
             })}
@@ -360,7 +375,7 @@ export default function Marketplace() {
         loadData()
         async function loadData() {
             if (typeof window === "undefined") return
-            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN+"/api/tags");
+            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN + "/api/tags");
             results = await results.json();
             setPreRenderData({
                 tags: results

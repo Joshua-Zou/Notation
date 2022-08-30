@@ -1,5 +1,5 @@
 import connectToDb from "../../utils/mongodb"
-
+import {getUserHash} from "../../utils/auth"
 
 export default async function handler(req, res) {
   const db = await connectToDb();
@@ -21,7 +21,8 @@ export default async function handler(req, res) {
         password: action.data.password,
         points: 0,
         listedNotes: [],
-        ownedNotes: []
+        ownedNotes: [],
+        userhash: getUserHash(action.data.email)
     });
     return res.send("Congrats! You've successfully registered! Navigate to the sign in page to continue!")
   }

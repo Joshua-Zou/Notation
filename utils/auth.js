@@ -25,3 +25,10 @@ export function getEmail(token) {
         return null
     }
 }
+export function getUserHash(email) {
+    try {
+        return crypto.createHash('md5').update(email).digest('hex');
+    } catch(e) {
+        return null
+    }
+}

@@ -40,12 +40,12 @@ import {
     Image,
     StackDivider,
     Icon,
-    Input
+    Input,
 } from '@chakra-ui/react';
 import { Dropdown } from 'semantic-ui-react'
 
 import { ReactElement } from 'react';
-
+import Avatar from "boring-avatars"
 import dynamic from "next/dynamic";
 
 const PDFViewer = dynamic(() => import("./components/pdf-viewer"), {
@@ -75,7 +75,7 @@ function TagSelector(props) {
     fetchTags()
     async function fetchTags(force) {
         if (tags[0].loading === true || force === true) {
-            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN+"/api/tags");
+            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN + "/api/tags");
             results = await results.json();
             setTags(results)
         }
@@ -100,7 +100,7 @@ function TagSelector(props) {
 
 function SplitWithImage(props) {
 
-    console.log(props.initial)
+    console.log(props.ownerData)
 
     async function purchase() {
         if (!confirm("Are you sure you want to purchase this note for 8 points?")) return;
@@ -118,98 +118,114 @@ function SplitWithImage(props) {
         if (props.initial.downloadLink) {
             return (
                 <Container
-                position="relative"
-                left="50px"
-                top="-20px"
-                margin="0"
-                maxWidth="calc(100vw - 80px)"
-            >
-                <Text
-                    textTransform={'uppercase'}
-                    color={'blue.400'}
-                    fontWeight={600}
-                    fontSize={'md'}
-                    bg={'blue.50'}
-                    p={2}
-                    alignSelf={'flex-start'}
-                    display="inline-block"
-                    rounded={'md'}
+                    position="relative"
+                    left="50px"
+                    top="-20px"
+                    margin="0"
+                    maxWidth="calc(100vw - 80px)"
+                >
+                    <Text
+                        textTransform={'uppercase'}
+                        color={'blue.400'}
+                        fontWeight={600}
+                        fontSize={'md'}
+                        bg={'blue.50'}
+                        p={2}
+                        alignSelf={'flex-start'}
+                        display="inline-block"
+                        rounded={'md'}
                     >
-                    Owned
-                </Text>
-                <Text
-                    onClick={() => window.open(`/api/download?noteid=${props.initial.id}&token=${localStorage.token || sessionStorage.token}`)}
-                    cursor="pointer"
-                    textTransform={'uppercase'}
-                    color={'teal.400'}
-                    fontWeight={600}
-                    fontSize={'md'}
-                    bg={'teal.50'}
-                    p={2}
-                    alignSelf={'flex-start'}
-                    display="inline-block"
-                    ml="20px"
-                    transition="all 0.2s"
-                    _hover={{
-                        bg: "teal.100"
-                    }}
-                    rounded={'md'}>
-                    Download
-                </Text>
-            </Container> 
+                        Owned
+                    </Text>
+                    <Text
+                        onClick={() => window.open(`/api/download?noteid=${props.initial.id}&token=${localStorage.token || sessionStorage.token}`)}
+                        cursor="pointer"
+                        textTransform={'uppercase'}
+                        color={'teal.400'}
+                        fontWeight={600}
+                        fontSize={'md'}
+                        bg={'teal.50'}
+                        p={2}
+                        alignSelf={'flex-start'}
+                        display="inline-block"
+                        ml="20px"
+                        transition="all 0.2s"
+                        _hover={{
+                            bg: "teal.100"
+                        }}
+                        rounded={'md'}>
+                        Download
+                    </Text>
+                </Container>
             )
         } else {
             return (
                 <Container
-                position="relative"
-                left="50px"
-                top="-20px"
-                margin="0"
-            >
-                <Text
-                    textTransform={'uppercase'}
-                    color={'blue.400'}
-                    fontWeight={600}
-                    fontSize={'md'}
-                    bg={'blue.50'}
-                    p={2}
-                    alignSelf={'flex-start'}
-                    display="inline-block"
-                    rounded={'md'}>
-                    Not Owned
-                </Text>
-                <Text
-                    onClick={purchase}
-                    cursor="pointer"
-                    textTransform={'uppercase'}
-                    color={'teal.400'}
-                    fontWeight={600}
-                    fontSize={'md'}
-                    bg={'teal.50'}
-                    p={2}
-                    alignSelf={'flex-start'}
-                    display="inline-block"
-                    ml="20px"
-                    transition="all 0.2s"
-                    _hover={{
-                        bg: "teal.100"
-                    }}
-                    rounded={'md'}>
-                    Purchase
-                </Text>
-            </Container> 
+                    position="relative"
+                    left="50px"
+                    top="-20px"
+                    margin="0"
+                >
+                    <Text
+                        textTransform={'uppercase'}
+                        color={'blue.400'}
+                        fontWeight={600}
+                        fontSize={'md'}
+                        bg={'blue.50'}
+                        p={2}
+                        alignSelf={'flex-start'}
+                        display="inline-block"
+                        rounded={'md'}>
+                        Not Owned
+                    </Text>
+                    <Text
+                        onClick={purchase}
+                        cursor="pointer"
+                        textTransform={'uppercase'}
+                        color={'teal.400'}
+                        fontWeight={600}
+                        fontSize={'md'}
+                        bg={'teal.50'}
+                        p={2}
+                        alignSelf={'flex-start'}
+                        display="inline-block"
+                        ml="20px"
+                        transition="all 0.2s"
+                        _hover={{
+                            bg: "teal.100"
+                        }}
+                        rounded={'md'}>
+                        Purchase
+                    </Text>
+                </Container>
             )
         }
     }
 
     return (
         <Container maxW={'100rem'} py={12} mt="40px">
-            <Actions/>
+            <Actions />
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={20}>
                 <Flex>
                     <PdfViewUpload pdfurl={props.initial.downloadLink} />
                 </Flex>
                 <Stack spacing={4} zIndex={1}>
+                    <Flex alignItems="center">
+                        <Avatar
+                            size={30}
+                            name={props.initial.userhash}
+                            variant={"beam"}
+                            colors={['#C1DDC7', '#F5E8C6', '#BBCD77', '#DC8051', '#F4D279']}
+                            square={false}
+                        />
+                        <Link display="inline-block"
+                            verticalAlign="middle"
+                            mx={2}
+                            fontWeight="medium"
+                            color="gray.700"
+                            href={"/user?id=" + props.initial.userhash}
+                        >{props.ownerData.firstName} {props.ownerData.lastName}</Link>
+                    </Flex>
                     <Text
                         fontWeight="bold"
                         fontSize="36px"
@@ -283,16 +299,20 @@ export default function Note(props) {
         loading: true,
         noteData: {
             tags: []
-        }
+        },
+        ownerData: {}
     });
     useEffect(() => {
         async function getData() {
             if (data.loading === true) {
                 if (!router.query.id) return;
                 let noteData = await getServerData.note(router.query.id)
+                let ownerData = await getServerData.userhash(noteData.userhash)
+                console.log(ownerData)
                 if (!noteData) return window.location.href = "/404"
                 setData({
                     noteData: noteData,
+                    ownerData: ownerData,
                     loading: false
                 })
             }
@@ -301,7 +321,7 @@ export default function Note(props) {
     })
     return (
         <div>
-            <SplitWithImage initial={data.noteData} />
+            <SplitWithImage initial={data.noteData} ownerData={data.ownerData}/>
             <Comments show={!data.loading} />
         </div>
     )

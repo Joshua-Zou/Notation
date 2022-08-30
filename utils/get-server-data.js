@@ -34,3 +34,8 @@ export async function note(noteid, incognito) {
     data = await data.json()
     return data.data[0]
 }
+export async function userhash(userhash) {
+    var data = await fetch(domain + "/api/public-user?userhash=" + userhash)
+    data = await data.json()
+    return data
+}

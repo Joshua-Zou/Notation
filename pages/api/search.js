@@ -1,5 +1,5 @@
 import connectToDb from "../../utils/mongodb"
-import { getEmail } from "../../utils/auth";
+import { getUserHash} from "../../utils/auth";
 
 export default async function handler(req, res) {
     try {
@@ -31,6 +31,8 @@ export default async function handler(req, res) {
 
         data = data.map(note => {
             note.downloadLink = null;
+            note.userhash = getUserHash(note.owner)
+            note.owner = null;
             return note
         })
         res.status(200).json({ status: "ok", data: data })
