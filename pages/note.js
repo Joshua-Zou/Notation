@@ -54,17 +54,15 @@ const PDFViewer = dynamic(() => import("./components/pdf-viewer"), {
 
 
 function PdfViewUpload(props) {
-    if (props.pdfurl) {
-        return (
-            <Container
-                padding="0px"
-                borderRadius={"10px"}
-                backgroundColor="rgba(0,0,0,0.1)"
-            >
-                <PDFViewer file={props.pdfurl} />
-            </Container>
-        )
-    }
+    return (
+        <Container
+            padding="0px"
+            borderRadius={"10px"}
+            backgroundColor="rgba(0,0,0,0.1)"
+        >
+            <PDFViewer file={props.pdfurl || "https://notation-images.s3.us-west-2.amazonaws.com/not_purchased.pdf"} />
+        </Container>
+    )
 
 }
 
@@ -321,7 +319,7 @@ export default function Note(props) {
     })
     return (
         <div>
-            <SplitWithImage initial={data.noteData} ownerData={data.ownerData}/>
+            <SplitWithImage initial={data.noteData} ownerData={data.ownerData} />
             <Comments show={!data.loading} />
         </div>
     )
