@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Flex, Image, Link, chakra, Text, useDisclosure, Drawer, DrawerOverlay, DrawerContent, IconButton, InputGroup, InputLeftElement, Input, Icon, Collapse, useColorModeValue, Button } from "@chakra-ui/react";
 import { FiMenu, FiSearch } from "react-icons/fi"
 import { MdHome, MdKeyboardArrowRight } from "react-icons/md"
 import { AiFillTags } from "react-icons/ai"
 import { Dropdown } from 'semantic-ui-react'
 import Avatar from "boring-avatars"
-
+import Loader from "./components/Loader"
 
 const Card = (props) => {
     var usedTags = props.allTags.filter(t => {
@@ -118,8 +118,16 @@ function SearchOptions(props) {
 
     const [selectedTags, setSelectedTags] = React.useState([])
     const [searchResults, setSearchResults] = React.useState([])
-    const queryRef = React.useRef()
+    const queryRef = React.useRef();
+    var isInitial = React.useRef(false);
     var queryCursor = React.useRef(0)
+
+    useEffect(() => {
+        if (isInitial.current === false) {
+            isInitial.current = true;
+            updateSearch()
+        }
+    })
 
 
     const NavItem = (props) => {
@@ -383,7 +391,7 @@ export default function Marketplace() {
         }
     }
 
-    if (preRenderData.loading) return <div></div>
+    if (preRenderData.loading) return     <Loader style={{marginLeft: "auto", marginRight: "auto", width: "fit-content", height: "100px", justifyContent: "center", alignItems: "center"}}/>
     else return (
         <SearchOptions allTags={preRenderData.tags} />
     )

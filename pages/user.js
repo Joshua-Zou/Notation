@@ -26,8 +26,6 @@ import {
 } from "@chakra-ui/react";
 import { AiFillEdit } from "react-icons/ai";
 import { BsBoxArrowUpRight, BsFillTrashFill, BsFillCloudDownloadFill } from "react-icons/bs";
-import Loader from "./components/Loader"
-
 function StatsTitleDescription(props) {
     return (
         <Container py={5} maxW={'container.lg'} mt="50px">
@@ -39,17 +37,13 @@ function StatsTitleDescription(props) {
                 }}
                 gap={6}>
                 <GridItem w="100%" colSpan={{ base: 1, sm: 2, md: 2 }}>
-                    <Heading as={'h2'}>Your Stats</Heading>
-                    <Text fontSize="xl">{props.data.userData.firstName} {props.data.userData.lastName}</Text>
+                    <Heading as={'h2'}>{props.data.userData.firstName} {props.data.userData.lastName}&apos;s stats</Heading>
                 </GridItem>
                 <GridItem w="100%">
                     <Flex flexDirection={'column'}>
                         <Text fontSize={'4xl'} fontWeight={'bold'}>
                             {props.data.userData.points} points
                         </Text>
-                        <Box fontSize={'sm'}>
-                            Use these points to purchase notes! Earn points by listing your own notes!
-                        </Box>
                     </Flex>
                 </GridItem>
                 <GridItem w="100%">
@@ -57,9 +51,6 @@ function StatsTitleDescription(props) {
                         <Text fontSize={'4xl'} fontWeight={'bold'}>
                             {props.data.listedNotesData.length} listed notes
                         </Text>
-                        <Box fontSize={'sm'}>
-                            The number of notes you have listed (uploaded to the marketplace)
-                        </Box>
                     </Flex>
                 </GridItem>
             </Grid>
@@ -275,20 +266,6 @@ function ListedNotesTable(props) {
                                                 aria-label="Up"
                                             />
                                         </chakra.a>
-                                        <chakra.a href={"/edit?id=" + token.id}>
-                                            <IconButton
-                                                colorScheme="green"
-                                                icon={<AiFillEdit />}
-                                                aria-label="Edit"
-                                            />
-                                        </chakra.a>
-                                        <IconButton
-                                            colorScheme="red"
-                                            variant="outline"
-                                            icon={<BsFillTrashFill />}
-                                            aria-label="Delete"
-                                            onClick={() => deleteNote(token.id)}
-                                        />
                                     </ButtonGroup>
                                 </Td>
                             </Tr>
@@ -463,13 +440,6 @@ function OwnedNotesTable(props) {
                                                 aria-label="Up"
                                             />
                                         </chakra.a>
-                                        <chakra.a href={token.downloadLink}>
-                                            <IconButton
-                                                colorScheme="green"
-                                                icon={<BsFillCloudDownloadFill />}
-                                                aria-label="Download"
-                                            />
-                                        </chakra.a>
                                     </ButtonGroup>
                                 </Td>
                             </Tr>
@@ -480,141 +450,6 @@ function OwnedNotesTable(props) {
         </Flex>
     );
 };
-function CreateNewBtn() {
-    return (
-        <Flex
-        bg="#edf3f8"
-        _dark={{
-            bg: "#3e3e3e",
-        }}
-        p={50}
-        w="full"
-        alignItems="center"
-        justifyContent="center"
-    >
-        <Box
-            bg="gray.50"
-            _dark={{
-                bg: "gray.800",
-            }}
-        >
-            <Box
-                maxW="7xl"
-                w={{
-                    md: "3xl",
-                    lg: "4xl",
-                }}
-                mx="auto"
-                py={{
-                    base: 12,
-                    lg: 16,
-                }}
-                px={{
-                    base: 4,
-                    lg: 8,
-                }}
-                display={{
-                    lg: "flex",
-                }}
-                alignItems={{
-                    lg: "center",
-                }}
-                justifyContent={{
-                    lg: "space-between",
-                }}
-            >
-                <chakra.h2
-                    fontSize={{
-                        base: "3xl",
-                        sm: "4xl",
-                    }}
-                    fontWeight="extrabold"
-                    letterSpacing="tight"
-                    lineHeight="shorter"
-                    color="gray.900"
-                    _dark={{
-                        color: "gray.100",
-                    }}
-                >
-                    <chakra.span display="block">Create your first listing</chakra.span>
-                    <chakra.span
-                        display="block"
-                        color="teal.600"
-                        _dark={{
-                            color: "gray.500",
-                        }}
-                    >
-                        Start learning better
-                    </chakra.span>
-                </chakra.h2>
-                <Stack
-                    direction={{
-                        base: "column",
-                        sm: "row",
-                    }}
-                    mt={{
-                        base: 8,
-                        lg: 0,
-                    }}
-                    flexShrink={{
-                        lg: 0,
-                    }}
-                >
-                    <Link
-                        w={["full", , "auto"]}
-                        display="inline-flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        px={5}
-                        py={3}
-                        border="solid transparent"
-                        fontWeight="bold"
-                        rounded="md"
-                        shadow="md"
-                        _light={{
-                            color: "white",
-                        }}
-                        bg="teal.600"
-                        _dark={{
-                            bg: "teal.500",
-                        }}
-                        _hover={{
-                            bg: "teal.700",
-                            _dark: {
-                                bg: "teal.600",
-                            },
-                        }}
-                        href="/new"
-                    >
-                        Upload My Notes
-                    </Link>
-                    <Link
-                        w={["full", , "auto"]}
-                        display="inline-flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        px={5}
-                        py={3}
-                        border="solid transparent"
-                        fontWeight="bold"
-                        rounded="md"
-                        shadow="md"
-                        color="teal.600"
-                        bg="white"
-                        _hover={{
-                            bg: "teal.50",
-                        }}
-                        href="/marketplace"
-                    >
-                        Explore Other Notes
-                    </Link>
-                </Stack>
-            </Box>
-        </Box>
-    </Flex>
-    )
-}
-
 
 export default function Dashboard() {
     const [data, setData] = useState({
@@ -626,7 +461,7 @@ export default function Dashboard() {
     useEffect(() => {
         async function getData() {
             if (data.loading === true) {
-                var userData = await getServerData.user()
+                var userData = await getServerData.userhash(window.location.search.slice(4))
                 setData({
                     userData: userData,
                     listedNotesData: await getServerData.listedNotes(userData),
@@ -637,19 +472,9 @@ export default function Dashboard() {
         }
         getData()
     }, [data])
-    if (data.loading) {
-        return (
-            <div>
-            <StatsTitleDescription data={data} />
-            <CreateNewBtn/>
-            <Loader style={{marginLeft: "auto", marginRight: "auto", width: "fit-content", height: "500px", justifyContent: "center", alignItems: "center"}}/>
-        </div>
-        )
-    }
     return (
         <div>
             <StatsTitleDescription data={data} />
-            <CreateNewBtn/>
             <ListedNotesTable data={data} />
             <OwnedNotesTable data={data} />
         </div>
