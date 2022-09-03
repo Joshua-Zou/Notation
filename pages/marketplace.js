@@ -120,7 +120,6 @@ function SearchOptions(props) {
     const [searchResults, setSearchResults] = React.useState([])
     const [isMobile] = useMediaQuery('(max-width: 800px)')
 
-    console.log("ismobile", isMobile)
 
     const queryRef = React.useRef();
     var isInitial = React.useRef(false);
@@ -385,7 +384,7 @@ export default function Marketplace() {
         loadData()
         async function loadData() {
             if (typeof window === "undefined") return
-            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN + "/api/tags");
+            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN + "/api/notes?action=list-tags");
             results = await results.json();
             setPreRenderData({
                 tags: results

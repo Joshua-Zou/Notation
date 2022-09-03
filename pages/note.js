@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 
 import * as getServerData from '../utils/get-server-data'
+import * as directServerData from '../utils/direct-server-data'
 
 import ReactMarkdown from 'react-markdown'
 
@@ -73,7 +74,7 @@ function TagSelector(props) {
     fetchTags()
     async function fetchTags(force) {
         if (tags[0].loading === true || force === true) {
-            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN + "/api/tags");
+            let results = await fetch(process.env.NEXT_PUBLIC_DOMAIN + "/api/notes?action=list-tags");
             results = await results.json();
             setTags(results)
         }
@@ -250,7 +251,7 @@ function SplitWithImage(props) {
 }
 
 export async function getServerSideProps({ req }) {
-    let results = await getServerData.note(req.url.slice("/note?id=".length), true)
+    let results = await directServerData.note(req.url.slice("/note?id=".length), true)
     return {
         props: {
             initialConfig: {
