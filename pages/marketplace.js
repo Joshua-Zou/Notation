@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Flex, Image, Link, chakra, Text, useDisclosure, Drawer, DrawerOverlay, DrawerContent, IconButton, InputGroup, InputLeftElement, Input, Icon, Collapse, useColorModeValue, Button } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, chakra, Text, useDisclosure, Drawer, DrawerOverlay, DrawerContent, IconButton, InputGroup, InputLeftElement, Input, Icon, Collapse, useColorModeValue, Button, useMediaQuery } from "@chakra-ui/react";
 import { FiMenu, FiSearch } from "react-icons/fi"
 import { MdHome, MdKeyboardArrowRight } from "react-icons/md"
 import { AiFillTags } from "react-icons/ai"
@@ -81,13 +81,13 @@ const Card = (props) => {
                             _hover={{ textDecor: "underline" }}
                             href={"/user?id=" + props.userhash}
                         >
-                                                    <Avatar
-                        size={42}
-                        name={props.userhash}
-                        variant={"beam"}
-                        colors={['#C1DDC7', '#F5E8C6', '#BBCD77', '#DC8051', '#F4D279']}
-                        square={false}
-                        />
+                            <Avatar
+                                size={42}
+                                name={props.userhash}
+                                variant={"beam"}
+                                colors={['#C1DDC7', '#F5E8C6', '#BBCD77', '#DC8051', '#F4D279']}
+                                square={false}
+                            />
                         </Link>
                     </Flex>
                 </Flex>
@@ -118,6 +118,10 @@ function SearchOptions(props) {
 
     const [selectedTags, setSelectedTags] = React.useState([])
     const [searchResults, setSearchResults] = React.useState([])
+    const [isMobile] = useMediaQuery('(max-width: 800px)')
+
+    console.log("ismobile", isMobile)
+
     const queryRef = React.useRef();
     var isInitial = React.useRef(false);
     var queryCursor = React.useRef(0)
@@ -199,7 +203,7 @@ function SearchOptions(props) {
         <Box
             as="nav"
             pos="absolute"
-            top="82px"
+            top="0"
             left="0"
             zIndex="sticky"
             h="full"
@@ -267,13 +271,11 @@ function SearchOptions(props) {
                 bg: "gray.700",
             }}
             minH="100vh"
+            position="relative"
         >
-            <SidebarContent
-                display={{
-                    base: "none",
-                    md: "unset",
-                }}
-            />
+            {!isMobile && (
+                <SidebarContent/>
+            )}
             <Drawer
                 isOpen={sidebar.isOpen}
                 onClose={sidebar.onClose}
@@ -391,7 +393,7 @@ export default function Marketplace() {
         }
     }
 
-    if (preRenderData.loading) return     <Loader style={{marginLeft: "auto", marginRight: "auto", width: "fit-content", height: "100px", justifyContent: "center", alignItems: "center"}}/>
+    if (preRenderData.loading) return <Loader style={{ marginLeft: "auto", marginRight: "auto", width: "fit-content", height: "100px", justifyContent: "center", alignItems: "center" }} />
     else return (
         <SearchOptions allTags={preRenderData.tags} />
     )
